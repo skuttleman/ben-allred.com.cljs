@@ -1,18 +1,18 @@
 {
   "navs": [{
-    "link": "#/home",
+    "link": "/",
     "text": "home",
     "iClass": "fa fa-home"
   }, {
-    "link": "#/bio",
+    "link": "/bio",
     "text": "bio",
     "iClass": "fa fa-info-circle"
   }, {
-    "link": "#/portfolio",
+    "link": "/portfolio",
     "text": "portfolio",
     "iClass": "fa fa-folder-open"
   }, {
-    "link": "#/music",
+    "link": "/music",
     "text": "music",
     "iClass": "fa fa-music"
   }, {

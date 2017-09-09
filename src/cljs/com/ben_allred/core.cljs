@@ -5,7 +5,8 @@
               [com.ben-allred.components.home :refer [home]]
               [com.ben-allred.empire.core :as emp]
               [com.ben-allred.empire.reducers.core :as red]
-              [com.ben-allred.router.core :as router]))
+              [com.ben-allred.router.core :as router]
+              [com.ben-allred.utils.http :as http]))
 
 (enable-console-print!)
 
@@ -17,3 +18,10 @@
         [["/" home]
          ["/:something" (fn [] [:div "NEW PATH"])]])
     (.getElementById js/document "app"))
+
+(let [{dispatch :dispatch} store]
+    (dispatch (http/get-resource "albums"))
+    (dispatch (http/get-resource "apps"))
+    (dispatch (http/get-resource "bios"))
+    (dispatch (http/get-resource "header"))
+    (dispatch (http/get-resource "songs")))

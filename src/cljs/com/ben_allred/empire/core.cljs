@@ -27,7 +27,9 @@
                            (keyword? value) (dispatch {:type value})
                            (vector? value) nil ;;TODO: handle event
                            (and (map? value) (:type value)) (dispatch-to subs state state-reducer value)
-                           :else (throw (str "Cannot dispatch value '" value "' of type: " (type value)))))]
+                           :else (throw (str "Cannot dispatch value '" value "' of type: " (type value))))
+                       (log/info "new-state: " (clj->js @state)))]
+        (log/info "new-state: " (clj->js @state))
         (assoc store :dispatch dispatch)))
 
 (defn combine-reducers [reducers]
