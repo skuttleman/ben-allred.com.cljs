@@ -1,19 +1,18 @@
 (ns com.ben-allred.router.core
     (:require-macros [com.ben-allred.utils.logger :as log])
     (:require [clojure.string :as s]
+              [com.ben-allred.utils.string :as us]
               [reagent.core :as r]
               [com.ben-allred.router.path :as path]))
 
-(defn ^:private rev-args [f] (fn [a b] (f b a)))
-
-(def ^:private split (rev-args s/split))
+(def ^:private path (r/atom (.-pathname js/location)))
 
 (defn ^:private split-query [query]
     (or (some->> query
             (next)
             (apply str)
-            (split #"&")
-            (map (partial split #"="))
+            (us/split #"&")
+            (map (partial us/split #"="))
             (map (fn [[key value]] [(keyword key) value]))
             (into {})) {}))
 
@@ -34,7 +33,14 @@
         (#(or % [(fn [] [:div "No route defined for '" path "'"])]))))
 
 (defn root [app routes]
-    (let [path (r/atom (.-pathname js/location))]
-        (js/setTimeout (fn [] (swap! path (constantly "/new-path"))) 2000)
-        (js/setTimeout (fn [] (swap! path (constantly "/"))) 3000)
-        [(fn [& args] (into (apply app (find-route @path routes)) args))]))
+    [(fn [& args] (into (apply app (find-route @path routes)) args))])
+
+(defn ^:private goto [to on-link]
+    (fn [event]
+        (.preventDefault event)
+        (.pushState js/history {} "" to)
+        (reset! path to)
+        (when on-link (on-link))))
+
+(defn Link [{:keys [to on-link] :as props} & children]
+    [:a (-> props (merge {:href "#" :on-click (goto to on-link)}) (dissoc :to :on-link)) children])

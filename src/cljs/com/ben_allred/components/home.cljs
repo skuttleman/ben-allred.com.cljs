@@ -1,4 +1,4 @@
 (ns com.ben-allred.components.home)
 
-(defn component [store routing]
+(defn home [store routing]
     [:div "main" store routing])

@@ -1,4 +1,5 @@
 (ns com.ben-allred.empire.core
+    (:require-macros [com.ben-allred.utils.logger :as log])
     (:require [reagent.core :as r]))
 
 (defn ^:private dispatch-to [subs state state-reducer action]
