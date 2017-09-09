@@ -1,19 +1,31 @@
 (ns com.ben-allred.empire.core
     (:require [reagent.core :as r]))
 
-(defn manage [{:keys [get-state dispatch]} component-tree & args]
+(defn ^:private dispatch-to [subs state state-reducer action]
+    (let [new-state (swap! state state-reducer action)
+          subs      @subs]
+        (doall (for [sub (vals (get subs (:type action)))]
+                   (sub action new-state)))
+        new-state))
+
+(defn manage [{:keys [get-state dispatch]} app & args]
     [(fn []
-         (into [component-tree (get-state) dispatch] args))])
+         (into [app (assoc (get-state) :dispatch dispatch)] args))])
 
 (defn create-store [state-reducer]
     (let [state    (r/atom (state-reducer))
-          store    {:get-state #(deref state)}
+          subs     (atom {})
+          store    {:get-state #(deref state)
+                    :subscribe (fn [type callback]
+                                   (let [key (gensym "callback")]
+                                       (swap! subs update type assoc key callback)
+                                       (fn [] (swap! subs update type dissoc key))))}
           dispatch (fn dispatch [value]
                        (cond
                            (fn? value) (value (assoc store :dispatch dispatch))
-                           (keyword? value) (dispatch {:type value}) ;;TODO: handle event
-                           (vector? value) nil
-                           (and (map? value) (:type value)) (swap! state state-reducer value)
+                           (keyword? value) (dispatch {:type value})
+                           (vector? value) nil ;;TODO: handle event
+                           (and (map? value) (:type value)) (dispatch-to subs state state-reducer value)
                            :else (throw (str "Cannot dispatch value '" value "' of type: " (type value)))))]
         (assoc store :dispatch dispatch)))
 

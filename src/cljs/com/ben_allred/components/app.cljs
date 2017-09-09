@@ -1,4 +1,7 @@
 (ns com.ben-allred.components.app)
 
-(defn component [{:keys [i d]} dispatch routing]
-    [:div (str "lalala " i "::" d routing)])
+(defn component [store routing child]
+    [:div
+     [:div "header"]
+     [child store routing]
+     [:div "footer"]])
