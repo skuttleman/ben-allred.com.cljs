@@ -1,4 +1,6 @@
 (ns com.ben-allred.components.home)
 
-(defn home [store routing]
-    [:div "main" store routing])
+(defn home []
+    [:div.above-the-fold
+     [:h1 "Ben Allred"]
+     [:h2 "Full Stack Web Developer"]])
