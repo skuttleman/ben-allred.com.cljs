@@ -2,6 +2,7 @@
     (:require-macros [com.ben-allred.utils.logger :as log])
     (:require [reagent.core :as r]
               [com.ben-allred.components.app :refer [app]]
+              [com.ben-allred.components.bio :refer [bio]]
               [com.ben-allred.components.home :refer [home]]
               [com.ben-allred.empire.core :as emp]
               [com.ben-allred.empire.reducers.core :as red]
@@ -16,7 +17,8 @@
     (router/root
         (fn [component routing] (emp/manage store app routing component))
         [["/" home]
-         ["/:something" (fn [] [:div "NEW PATH"])]])
+         ["/bio" bio]
+         ["/:unknown" (fn [] [:div.not-found "PAGE NOT FOUND"])]])
     (.getElementById js/document "app"))
 
 (let [{dispatch :dispatch} store]
