@@ -10,6 +10,6 @@
          [:div.image-container
           [:img.bg-image {:src bg-img}]]
          [header dispatch navs links view]
-         [:main.app (class-if {view true :bottom-margin false})
+         [:main.app (class-if {view true :bottom-margin (:visible? music)})
           [child store routing]]
          [player music dispatch]]))

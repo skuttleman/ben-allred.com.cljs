@@ -10,22 +10,17 @@
   }
   .song-list {
     overflow: hidden;
-    padding: $MAIN-PADDING;
     box-shadow: inset 1px 1px 5px $GREY;
-    border: 1px solid $GREY;
-    &.ng-leave {
-      transition: 0.25s linear;
-      height: 70px;
-    }
-    &.ng-leave.ng-leave-active {
+    transition: all 0.25s linear;
+    &.collapsed {
       height: 0;
+      padding: 0 $MAIN-PADDING 0 $MAIN-PADDING;
+      border: 1px solid rgba(0, 0, 0, 0);
     }
-    &.ng-enter {
-      transition: 0.25s linear;
-      height: 0;
-    }
-    &.ng-enter.ng-enter-active {
+    &.expanded {
       height: 70px;
+      border: 1px solid $GREY;
+      padding: $MAIN-PADDING;
     }
     .song {
       transition: color 0.2s ease;

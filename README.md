@@ -1,4 +1,4 @@
-# ben-allred.com.cljs
+# Personal Website
 
 A rewrite of [ben-allred.com](https://www.ben-allred.com) using **clojurescript** with **reagent**.
 
@@ -7,7 +7,7 @@ A rewrite of [ben-allred.com](https://www.ben-allred.com) using **clojurescript*
 ```bash
 $ git clone git@github.com:skuttleman/ben-allred.com.cljs.git
 $ cd ben-allred.com.cljs
-$ lein figwheel
+$ lein cooper
 ```
 
 ## Build/Deploy

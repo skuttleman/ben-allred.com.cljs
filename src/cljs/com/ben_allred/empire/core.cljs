@@ -27,7 +27,7 @@
           dispatch (fn dispatch [value]
                        (cond
                            (fn? value) (value (assoc store :dispatch dispatch))
-                           (keyword? value) (dispatch-to subs state state-reducer {:type value})
+                           (keyword? value) (dispatch {:type value})
                            (vector? value) nil ;;TODO: handle event?
                            (and (map? value) (keyword? (:type value))) (dispatch-to subs state state-reducer value)
                            :else (throw (str "Cannot dispatch value '" value "' of type: " (type value)))))]

@@ -38,9 +38,6 @@
 
 (defn ^:private goto [to on-link]
     (fn [event]
-        ;(.preventDefault event)
-        ;(.pushState js/history {} "" to)
-        ;(set! (.-hash js/location) url)
         (reset! path to)
         (when on-link (on-link))))
 

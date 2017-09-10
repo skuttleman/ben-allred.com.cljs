@@ -7,8 +7,8 @@
 
 (defn player [{:keys [visible? expanded? playing? songs albums current-song current-album]} dispatch]
     [:div.music-player
-     (when (and visible? expanded?)
-         [:div.song-list
+     (when visible?
+         [:div.song-list (class-if {:expanded expanded? :collapsed (not expanded?)})
           [:ul.songs
            (for [{title :title :as song} songs
                  :let [selected? (= current-song song)

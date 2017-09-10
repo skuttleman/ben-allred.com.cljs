@@ -22,8 +22,7 @@
         [["/" home]
          ["/bio" bio]
          ["/music" music]
-         ["/portfolio" portfolio]
-         ["/:unknown" (fn [] [:div.not-found "PAGE NOT FOUND"])]])
+         ["/portfolio" portfolio]])
     (.getElementById js/document "app"))
 
 (let [{dispatch :dispatch} store]
