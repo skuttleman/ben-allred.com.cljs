@@ -13,6 +13,6 @@ $ lein figwheel
 ## Build/Deploy
 
 ```bash
-$ lein do clean, cljsbuild once min
+$ lein do clean, cljsbuild once min, sass once
 $ firebase deploy
 ```
