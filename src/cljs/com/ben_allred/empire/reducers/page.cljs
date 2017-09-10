@@ -1,6 +1,7 @@
 (ns com.ben-allred.empire.reducers.page
     (:require-macros [com.ben-allred.macros.core :refer [->map]])
-    (:require [com.ben-allred.empire.core :as emp]))
+    (:require [com.ben-allred.empire.core :as emp]
+              [clojure.string :as s]))
 
 (defn ^:private view->bg-img [view]
     (case view
@@ -11,7 +12,9 @@
         ""))
 
 (defn ^:private view
-    ([] :home)
+    ([]
+     (let [path (last (s/split (.-hash js/location) #"/"))]
+         (if (or (empty? path) (= "#" path)) :home (keyword path))))
     ([state {:keys [type view]}]
      (case type
          :navigate view
@@ -20,8 +23,8 @@
 (defn ^:private bg-img
     ([] (view->bg-img :home))
     ([state {:keys [type view]}]
-        (case type
-            :navigate (view->bg-img view)
-            state)))
+     (case type
+         :navigate (view->bg-img view)
+         state)))
 
 (def page (emp/combine-reducers (->map view bg-img)))

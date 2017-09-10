@@ -18,7 +18,7 @@
                ^{:key link} [:li.nav-element (class-if {:current active?})
                              (conj (cond
                                        active? [:span]
-                                       (= text "resume") [:a {:target "_top" :href link}]
+                                       (= text "resume") [:a {:target "_blank" :href link}]
                                        :else [link-component {:to link :on-link #(dispatch {:type :navigate :view new-view})}])
                                  ^{:key 0} [:i.nav-icon {:class-name i-class}]
                                  ^{:key 1} [:span.nav-text text])]))]]])

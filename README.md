@@ -1,6 +1,6 @@
 # ben-allred.com.cljs
 
-A rewrite of ben-allred.com using clojurescript with reagent.
+A rewrite of [ben-allred.com](https://www.ben-allred.com) using **clojurescript** with **reagent**.
 
 ## Development
 
