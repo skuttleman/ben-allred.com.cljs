@@ -1,6 +1,6 @@
 (ns com.ben-allred.components.header
     (:require [com.ben-allred.utils.component-utils :refer [class-if]]
-              [com.ben-allred.router.core :refer [Link]]))
+              [com.ben-allred.router.core :refer [link-component]]))
 
 
 (defn header [dispatch navs links view]
@@ -19,6 +19,6 @@
                              (conj (cond
                                        active? [:span]
                                        (= text "resume") [:a {:target "_top" :href link}]
-                                       :else [Link {:to link :on-link #(dispatch {:type :navigate :view new-view})}])
+                                       :else [link-component {:to link :on-link #(dispatch {:type :navigate :view new-view})}])
                                  ^{:key 0} [:i.nav-icon {:class-name i-class}]
                                  ^{:key 1} [:span.nav-text text])]))]]])

@@ -42,5 +42,5 @@
         (reset! path to)
         (when on-link (on-link))))
 
-(defn Link [{:keys [to on-link] :as props} & children]
+(defn link-component [{:keys [to on-link] :as props} & children]
     [:a (-> props (merge {:href "#" :on-click (goto to on-link)}) (dissoc :to :on-link)) children])

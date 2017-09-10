@@ -4,10 +4,13 @@
               [com.ben-allred.components.app :refer [app]]
               [com.ben-allred.components.bio :refer [bio]]
               [com.ben-allred.components.home :refer [home]]
+              [com.ben-allred.components.music :refer [music]]
+              [com.ben-allred.components.portfolio :refer [portfolio]]
               [com.ben-allred.empire.core :as emp]
               [com.ben-allred.empire.reducers.core :as red]
               [com.ben-allred.router.core :as router]
-              [com.ben-allred.utils.http :as http]))
+              [com.ben-allred.utils.http :as http]
+              [com.ben-allred.empire.managers.core :as mgr]))
 
 (enable-console-print!)
 
@@ -18,6 +21,8 @@
         (fn [component routing] (emp/manage store app routing component))
         [["/" home]
          ["/bio" bio]
+         ["/music" music]
+         ["/portfolio" portfolio]
          ["/:unknown" (fn [] [:div.not-found "PAGE NOT FOUND"])]])
     (.getElementById js/document "app"))
 
@@ -27,3 +32,5 @@
     (dispatch (http/get-resource "bios"))
     (dispatch (http/get-resource "header"))
     (dispatch (http/get-resource "songs")))
+
+(mgr/subscribe-managers! store)

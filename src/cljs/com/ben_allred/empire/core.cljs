@@ -20,16 +20,15 @@
                     :subscribe (fn [type callback]
                                    (let [key (gensym "callback")]
                                        (swap! subs update type assoc key callback)
-                                       (fn [] (swap! subs update type dissoc key))))}
+                                       (fn [] (swap! subs update type dissoc key) :success)))}
           dispatch (fn dispatch [value]
                        (cond
                            (fn? value) (value (assoc store :dispatch dispatch))
-                           (keyword? value) (dispatch {:type value})
+                           (keyword? value) (dispatch-to subs state state-reducer {:type value})
                            (vector? value) nil ;;TODO: handle event
-                           (and (map? value) (:type value)) (dispatch-to subs state state-reducer value)
+                           (and (map? value) (keyword? (:type value))) (dispatch-to subs state state-reducer value)
                            :else (throw (str "Cannot dispatch value '" value "' of type: " (type value))))
                        (log/info "new-state: " (clj->js @state)))]
-        (log/info "new-state: " (clj->js @state))
         (assoc store :dispatch dispatch)))
 
 (defn combine-reducers [reducers]
