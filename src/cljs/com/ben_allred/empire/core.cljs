@@ -18,9 +18,12 @@
           subs     (atom {})
           store    {:get-state #(deref state)
                     :subscribe (fn [type callback]
-                                   (let [key (gensym "callback")]
-                                       (swap! subs update type assoc key callback)
-                                       (fn [] (swap! subs update type dissoc key) :success)))}
+                                   (let [key       (gensym "callback")
+                                         subscribe #(do (swap! subs update % assoc key callback)
+                                                        (fn [] (swap! subs update type dissoc key) :success))]
+                                       (if (coll? type)
+                                           (mapv subscribe type)
+                                           (subscribe type))))}
           dispatch (fn dispatch [value]
                        (cond
                            (fn? value) (value (assoc store :dispatch dispatch))

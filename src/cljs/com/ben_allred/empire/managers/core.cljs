@@ -3,4 +3,4 @@
 
 (defn subscribe-managers! [{:keys [dispatch subscribe]}]
     (let [music-sub (music/sub dispatch)]
-        {:music [(subscribe :select-song music-sub) (subscribe :toggle-playing music-sub)]}))
+        {:music (subscribe [:select-song :toggle-playing] music-sub)}))
