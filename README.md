@@ -12,4 +12,7 @@ $ lein figwheel
 
 ## Build/Deploy
 
-...tbd
+```bash
+$ lein do clean, cljsbuild once min
+$ firebase deploy
+```
