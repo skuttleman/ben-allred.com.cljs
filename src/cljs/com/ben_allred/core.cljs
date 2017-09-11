@@ -22,7 +22,8 @@
         [["/" home]
          ["/bio" bio]
          ["/music" music]
-         ["/portfolio" portfolio]])
+         ["/portfolio" portfolio]
+         [:else (router/redirect "/")]])
     (.getElementById js/document "app"))
 
 (let [{dispatch :dispatch} store]

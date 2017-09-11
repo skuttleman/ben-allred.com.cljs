@@ -4,8 +4,9 @@
               [com.ben-allred.utils.component-utils :refer [class-if]]))
 
 (defn app [{:keys [dispatch music] :as store} routing child]
-    (let [{{:keys [bg-img view]} :page} store
-          {{:keys [navs links]} :header} store]
+    (let [{{:keys [bg-img]} :page} store
+          {{:keys [navs links]} :header} store
+          view (keyword (apply str (or (next (:path routing)) ["home"])))]
         [:div
          [:div.image-container
           [:img.bg-image {:src bg-img}]]

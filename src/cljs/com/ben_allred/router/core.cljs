@@ -5,7 +5,7 @@
               [reagent.core :as r]
               [com.ben-allred.router.path :as path]))
 
-(def ^:private path (r/atom (.-hash js/location)))
+(def ^:private path (r/atom (.-pathname js/location)))
 
 (defn ^:private split-query [query]
     (or (some->> query
@@ -22,24 +22,34 @@
       :query  (split-query (.-search js/location))
       :params {}})
     ([path params]
-        (assoc (build-routing path) :params params)))
+     (assoc (build-routing path) :params params)))
 
 (defn ^:private find-route [path routes]
-    (let [sub-path (apply str (rest path))]
-        (->> routes
-            (filter (fn [[param-path route]]
-                        (path/match? sub-path param-path)))
-            (map (fn [[param-path route]] [route (build-routing sub-path (path/->params sub-path param-path))]))
-            (first)
-            (#(or % [(fn [] [:div "No route defined for '" sub-path "'"])])))))
+    (->> routes
+        (filter (fn [[param-path route]]
+                    (path/match? path param-path)))
+        (map (fn [[param-path route]]
+                 [route (build-routing path (path/->params path param-path))]))
+        (first)
+        (#(or % [(fn [] [:div "No route defined for '" path "'"])]))))
 
 (defn root [app routes]
     [(fn [& args] (into (apply app (find-route @path routes)) args))])
 
 (defn ^:private goto [to on-link]
     (fn [event]
+        (when (and event (.-preventDefault event))
+            (.preventDefault event))
         (reset! path to)
+        (.pushState js/history nil "" to)
         (when on-link (on-link))))
 
 (defn link-component [{:keys [to on-link] :as props} & children]
-    [:a (-> props (merge {:href (str "#" to) :on-click (goto to on-link)}) (dissoc :to :on-link)) children])
+    [:a (-> props (merge {:href "" :on-click (goto to on-link)}) (dissoc :to :on-link)) children])
+
+(defn redirect [to]
+    (fn []
+        (.replaceState js/history nil "" to)
+        (goto to nil)))
+
+(.addEventListener js/window "popstate" #(reset! path (.-pathname js/location)))

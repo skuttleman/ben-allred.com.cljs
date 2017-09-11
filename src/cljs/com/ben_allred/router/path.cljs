@@ -15,13 +15,14 @@
     (normalize (str prefix "/" path)))
 
 (defn match? [path param-path]
-    (let [[path param-path] (map segmentize [path param-path])]
-        (and
-            (= (count path) (count param-path))
-            (->> [path param-path]
-                (apply map #(or (= %1 %2) (= (first %2) ":")))
-                (remove true?)
-                (empty?)))))
+    (or (= :else param-path)
+        (let [[path param-path] (map segmentize [path param-path])]
+            (and
+                (= (count path) (count param-path))
+                (->> [path param-path]
+                    (apply map #(or (= %1 %2) (= (first %2) ":")))
+                    (remove true?)
+                    (empty?))))))
 
 (defn ->params [path param-path]
     (->> [path param-path]

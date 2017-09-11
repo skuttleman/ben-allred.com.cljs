@@ -11,15 +11,6 @@
         :portfolio "/images/view.jpg"
         ""))
 
-(defn ^:private view
-    ([]
-     (let [path (last (s/split (.-hash js/location) #"/"))]
-         (if (or (empty? path) (= "#" path)) :home (keyword path))))
-    ([state {:keys [type view]}]
-     (case type
-         :navigate view
-         state)))
-
 (defn ^:private bg-img
     ([] (view->bg-img :home))
     ([state {:keys [type view]}]
@@ -27,4 +18,4 @@
          :navigate (view->bg-img view)
          state)))
 
-(def page (emp/combine-reducers (->map view bg-img)))
+(def page (emp/combine-reducers (->map bg-img)))
