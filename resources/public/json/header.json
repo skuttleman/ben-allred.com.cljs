@@ -26,5 +26,8 @@
   }, {
     "link": "http://www.linkedin.com/in/allredbd",
     "iClass": "fa fa-linkedin-square"
+  }, {
+    "link": "mailto://skuttleman@gmail.com",
+    "iClass": "fa fa-envelope-square"
   }]
 }

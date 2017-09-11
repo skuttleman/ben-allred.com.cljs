@@ -1,29 +1,17 @@
 {
   "apps": [{
       "id": 1,
-      "title": "The Legend of Tilde",
+      "title": "This Website",
       "repos": [{
-        "name": "front-end repo",
-        "link": "/capstone-front-end"
-      }, {
-        "name": "server repo",
-        "link": "/capstone-server"
-      }, {
-        "name": "db repo",
-        "link": "/capstone-db"
+        "name": "repo",
+        "link": "/ben-allred.com.cljs"
       }],
-      "link": "https://g15-capstone.firebaseapp.com",
-      "tagLine": "Sometimes just communicating can be the hardest part.",
-      "description": "The Hero of Runtime, Hyperlink, and the beautiful Princess Tilde have to work together to escape the dungeon under the kingdom of Hyphen. The Legend of Tilde is a cooperative puzzle game where two players have to establish a means of communication in order to help each other escape the dungeon. Future plans include community made levels and a ratings and friends system.",
+      "link": "https://www.ben-allred.com/",
+      "tagLine": "My porfolio",
+      "description": "A recent rewrite of my personal web site using Clojurescript",
       "technologies": [
-        "socket.io",
-        "phaser",
-        "node/express",
-        "angular",
-        "mongo db",
-        "mysql",
-        "foundation",
-        "twilio"
+        "clojurescript",
+        "reagent"
       ]
     }, {
       "id": 2,
