@@ -16,3 +16,8 @@ $ lein cooper
 $ lein do clean, cljsbuild once min, sass once
 $ firebase deploy
 ```
+
+## TODO
+- Add travel section?
+- store: enhancers / middleware
+- routing: nested routes
