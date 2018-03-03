@@ -1,6 +1,20 @@
 {
   "apps": [{
       "id": 1,
+      "title": "Collaj",
+      "repos": [{
+        "name": "repo",
+        "link": "/collaj"
+      }],
+      "link": "https://clojars.org/com.ben-allred/collaj",
+      "tagLine": "A Clojure / Clojurescript port of Redux",
+      "description": "A standalone state management system based on Redux with some customization options that make it work with Reagent.",
+      "technologies": [
+        "clojure",
+        "clojars"
+      ]
+    }, {
+      "id": 2,
       "title": "This Website",
       "repos": [{
         "name": "repo",
@@ -14,7 +28,7 @@
         "reagent"
       ]
     }, {
-      "id": 2,
+      "id": 3,
       "title": "Express Outbound",
       "repos": [{
         "name": "repo",
@@ -28,7 +42,7 @@
         "npm"
       ]
     }, {
-      "id": 3,
+      "id": 4,
       "title": "Git Push It",
       "repos": [{
         "name": "repo",
@@ -40,24 +54,6 @@
       "technologies": [
         "git",
         "npm"
-      ]
-    }, {
-      "id": 4,
-      "title": "Stumblr",
-      "repos": [{
-        "name": "repo",
-        "link": "/stumblr"
-      }],
-      "link": "http://stumblr-club.herokuapp.com/",
-      "tagLine": "Map an Epic Pub Crawl. Right Here. Right Now.",
-      "description": "Some friends and I made @stumblr_app so we could have an app that we could use to go out and celebrate the app we were making. We thought it would be fun to interface with Google Maps API and Twitter API to let users find some nearby bars to go to and tweet about it. Earn fun badges as you go. #stumblr",
-      "technologies": [
-        "google maps",
-        "twitter",
-        "node/express",
-        "mongo db",
-        "react",
-        "bootstrap"
       ]
     }, {
       "id": 5,
