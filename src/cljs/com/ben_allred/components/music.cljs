@@ -8,7 +8,7 @@
       [:h2 "My Music"]
       (when-not (:visible? music)
           [:div.open-music-player.button
-           {:on-click #(dispatch :toggle-music-player)}
+           {:on-click #(dispatch [:toggle-music-player])}
            "Open Music Player"
            [:i.fa.fa-external-link]])
       [:p "I have written many songs."]

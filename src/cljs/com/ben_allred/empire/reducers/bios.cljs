@@ -2,7 +2,7 @@
 
 (defn bios
     ([] [])
-    ([state {:keys [type body]}]
-        (case type
-            :receive-bios (:bios body)
-            state)))
+    ([state [type data]]
+     (case type
+         :receive-bios (get-in data [:body :bios])
+         state)))

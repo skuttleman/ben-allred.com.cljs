@@ -2,7 +2,7 @@
 
 (defn apps
     ([] [])
-    ([state {:keys [type body]}]
-        (case type
-            :receive-apps (:apps body)
-            state)))
+    ([state [type data]]
+     (case type
+         :receive-apps (get-in data [:body :apps])
+         state)))

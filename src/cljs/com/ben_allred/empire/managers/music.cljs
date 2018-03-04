@@ -17,11 +17,10 @@
         (when-not (s/ends-with? (.-src controls) src)
             (set! (.-src controls) src))))
 
-(defn sub [dispatch]
-    (let [listener #(dispatch :stop-playing)]
-        (fn [_ {{:keys [playing? current-song]} :music}]
-            (when-let [{src :src} current-song]
-                (if playing?
-                    (do (set-song-src! src listener)
-                        (play listener))
-                    (pause listener))))))
+(defn sub [dispatch {:keys [playing? current-song]}]
+    (let [listener #(dispatch [:stop-playing])]
+        (when-let [{src :src} current-song]
+            (if playing?
+                (do (set-song-src! src listener)
+                    (play listener))
+                (pause listener)))))

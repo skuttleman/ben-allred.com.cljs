@@ -1,7 +1,7 @@
 (ns com.ben-allred.empire.reducers.page
     (:require-macros [com.ben-allred.macros.core :refer [->map]])
-    (:require [com.ben-allred.empire.core :as emp]
-              [clojure.string :as s]))
+    (:require [clojure.string :as s]
+              [com.ben-allred.collaj.reducers :as collaj.reducers]))
 
 (defn ^:private view->bg-img [view]
     (case view
@@ -13,9 +13,9 @@
 
 (defn ^:private bg-img
     ([] (view->bg-img :home))
-    ([state {:keys [type view]}]
+    ([state [type data]]
      (case type
-         :navigate (view->bg-img view)
+         :navigate (view->bg-img (:view data))
          state)))
 
-(def page (emp/combine-reducers (->map bg-img)))
+(def page (collaj.reducers/combine (->map bg-img)))

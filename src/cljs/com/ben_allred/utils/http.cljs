@@ -15,11 +15,11 @@
     (< status 400))
 
 (defn ^:private receive [resource {body :body}]
-    {:type (keyword (str "receive-" resource))
-     :body (json/re-key body)})
+    [(keyword (str "receive-" (name resource)))
+     {:body (json/re-key body)}])
 
 (defn get-resource [resource]
-    (fn [{dispatch :dispatch}]
-        (go (let [response (<! (http/get (str "/json/" resource ".json")))]
+    (fn [[dispatch]]
+        (go (let [response (<! (http/get (str "/json/" (name resource) ".json")))]
                 (if (successful? response)
                     (dispatch (receive resource response)))))))

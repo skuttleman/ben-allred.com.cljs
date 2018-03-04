@@ -1,19 +1,18 @@
 (ns com.ben-allred.empire.reducers.header
-    (:require-macros [com.ben-allred.macros.core :refer [->map]])
-    (:require [com.ben-allred.empire.core :as emp]))
+    (:require-macros [com.ben-allred.macros.core :refer [->map]]))
 
 (defn ^:private navs
     ([] [])
-    ([state {:keys [type body]}]
+    ([state [type data]]
         (case type
-            :receive-header (:navs body)
+            :receive-header (get-in data [:body :navs])
             state)))
 
 (defn ^:private links
     ([] [])
-    ([state {:keys [type body]}]
+    ([state [type data]]
      (case type
-         :receive-header (:links body)
+         :receive-header (get-in data [:body :links])
          state)))
 
-(def header (emp/combine-reducers (->map navs links)))
+(def header (com.ben-allred.collaj.reducers/combine (->map navs links)))

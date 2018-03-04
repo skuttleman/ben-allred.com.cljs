@@ -1,6 +1,6 @@
 # Personal Website
 
-A rewrite of [ben-allred.com](https://www.ben-allred.com) using **clojurescript** with **reagent**.
+A rewrite of [ben-allred.com](https://www.ben-allred.com) using **Clojurescript** with **Reagent**.
 
 ## Development
 

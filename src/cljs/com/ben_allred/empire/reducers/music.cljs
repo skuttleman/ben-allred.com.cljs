@@ -1,17 +1,17 @@
 (ns com.ben-allred.empire.reducers.music
     (:require-macros [com.ben-allred.macros.core :refer [->map]])
-    (:require [com.ben-allred.empire.core :as emp]))
+    (:require [com.ben-allred.collaj.reducers :as collaj.reducers]))
 
 (defn ^:private visible?
     ([] false)
-    ([state {type :type}]
+    ([state [type]]
      (case type
          :toggle-music-player (not state)
          state)))
 
 (defn ^:private expanded?
     ([] false)
-    ([state {type :type}]
+    ([state [type]]
      (case type
          :toggle-player-expanded (not state)
          :select-song false
@@ -19,7 +19,7 @@
 
 (defn ^:private playing?
     ([] false)
-    ([state {type :type}]
+    ([state [type]]
      (case type
          :toggle-playing (not state)
          :select-song true
@@ -28,29 +28,29 @@
 
 (defn ^:private songs
     ([] [])
-    ([state {:keys [type body]}]
+    ([state [type data]]
      (case type
-         :receive-songs (:songs body)
+         :receive-songs (get-in data [:body :songs])
          state)))
 
 (defn ^:private albums
     ([] [])
-    ([state {:keys [type body]}]
+    ([state [type data]]
      (case type
-         :receive-albums (:albums body)
+         :receive-albums (get-in data [:body :albums])
          state)))
 
 (defn ^:private current-song
     ([] nil)
-    ([state {:keys [type song]}]
+    ([state [type data]]
      (case type
-         :select-song song
+         :select-song (:song data)
          :stop-playing nil
          state)))
 
 (defn ^:private current-album
     ([] nil)
-    ([state {:keys [type song albums]}]
+    ([state [type {:keys [song albums]}]]
      (case type
          :select-song (->> albums
                           (filter #(= (:album-id song) (:id %)))
@@ -58,5 +58,5 @@
          :stop-playing nil
          state)))
 
-(def music (emp/combine-reducers
+(def music (collaj.reducers/combine
                (->map visible? expanded? playing? songs albums current-song current-album)))

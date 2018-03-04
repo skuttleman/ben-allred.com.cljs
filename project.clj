@@ -10,6 +10,7 @@
                    [org.clojure/clojurescript "1.9.908"]
                    [org.clojure/core.async "0.3.443"]
                    [reagent "0.6.1"]
+                   [com.ben-allred/collaj "0.6.1"]
                    [cljs-http "0.1.43"]]
 
     :plugins [[lein-figwheel "0.5.13"]
@@ -17,7 +18,7 @@
               [lein-cooper "1.2.2"]
               [lein-sassy "1.0.8"]]
 
-    :source-paths ["src/clj" "src/cljs"]
+    :source-paths ["src/cljs"]
 
     :cljsbuild {:builds
                 [{:id           "dev"
@@ -103,7 +104,7 @@
                                      [figwheel-sidecar "0.5.13"]
                                      [com.cemerick/piggieback "0.2.2"]]
                      ;; need to add dev source path here to get user.clj loaded
-                     :source-paths  ["src/clj" "src/cljs" "dev"]
+                     :source-paths  ["src/cljs" "dev"]
                      ;; for CIDER
                      ;; :plugins [[cider/cider-nrepl "0.12.0"]]
                      :repl-options  {:nrepl-middleware [cemerick.piggieback/wrap-cljs-repl]}
